@@ -1,0 +1,20 @@
+services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: fatscope-api:1.0.0
+    ports:
+      - "8000:8000"
+    environment:
+      ALLOWED_ORIGINS: http://localhost:3000
+      MAX_UPLOAD_MB: "512"
+      DATA_DIR: /data
+      ANALYSIS_TTL_HOURS: "24"
+      PORT: "8000"
+    volumes:
+      - evidence:/data
+    restart: unless-stopped
+
+volumes:
+  evidence:
